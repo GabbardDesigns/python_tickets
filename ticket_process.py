@@ -37,7 +37,17 @@ def purchase_info(name):
 
 #Purchase confirmation, allows for cancelation.    
 def confirm_msg(number_of_tickets, price_of_tickets, tickets_remaining):
-    confirmation = input("You are purchasing {} tickets at ${} each.  Your total is ${}.  Please press 'Y' to confirm, 'E' to edit, or 'C' to cancel.".format(number_of_tickets, TICKET_PRICE, price_of_tickets))
+    while True: 
+      confirmation = input("You are purchasing {} tickets at ${} each.  Your total is ${}.  Please press 'Y' to confirm, 'E' to edit, or 'C' to cancel.".format(number_of_tickets, TICKET_PRICE, price_of_tickets))
+      print (confirmation.upper())
+      try:
+        if confirmation.upper() == "E" or confirmation.upper() == 'C' or confirmation.upper() == "Y":
+          break
+        else:  
+          raise ValueError
+      except ValueError:
+          print("Oops!  That was not a vaild selection.  Try again.")
+    
     return(confirmation)
 
 #Full ticket purchasing 
@@ -55,6 +65,7 @@ def purchase_tickets(tickets_remaining,name):
             print("Purchase cancelled.  Have a nice day.")
             confirm_state=""
             clear()
+            number_of_tickets = 0
         else:
             confirm_state=confirm_msg(number_of_tickets, price_of_tickets,tickets_remaining)
         
